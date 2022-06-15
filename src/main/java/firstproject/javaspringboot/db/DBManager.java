@@ -10,11 +10,11 @@ public class DBManager {
     private ArrayList<Products> products = new ArrayList<>();
 
     {
-        products.add(new Products(++id, "iPhone 11","8GB RAM 256GB SSD", 320000));
-        products.add(new Products(++id, "iPhone 12","16GB RAM 512GB SSD", 420000));
-        products.add(new Products(++id, "iPhone 13","16GB RAM 1024GB SSD", 530000));
-        products.add(new Products(++id, "iPhone 14","32GB RAM 1024GB SSD", 580000));
-        products.add(new Products(++id, "iPhone 15","32GB RAM 512GB SSD", 6500000));
+        products.add(new Products(++id, "iPhone 11", "8GB RAM 256GB SSD", 320000));
+        products.add(new Products(++id, "iPhone 12", "16GB RAM 512GB SSD", 420000));
+        products.add(new Products(++id, "iPhone 13", "16GB RAM 1024GB SSD", 530000));
+        products.add(new Products(++id, "iPhone 14", "32GB RAM 1024GB SSD", 580000));
+        products.add(new Products(++id, "iPhone 15", "32GB RAM 512GB SSD", 6500000));
     }
 
     public ArrayList<Products> getAllProducts() {
@@ -28,5 +28,14 @@ public class DBManager {
 
     public void deleteProduct(Long id) {
         products.removeIf(product -> product.getId().equals(id));
+    }
+
+    public Products getProduct(Long id) {
+        for (Products product : products) {
+            if (product.getId().equals(id)) {
+                return product;
+            }
+        }
+        return null;
     }
 }
