@@ -13,26 +13,20 @@
     </div>
 
     <div class="row">
-        <div class="col-8">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col" th:each="product : ${products}">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${product.name}"></h5>
-                                <h6 class="card-title text-success" th:text="${product.price}"></h6>
-                                <p class="card-text" th:text="${product.description}"></p>
-                                <a href="#" class="btn btn-success text-center col-12">BUY NOW</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        <div class="col-4">
+        <div class="col-8 mx-auto">
             <div layout:fragment="productsContent">
 
             </div>
         </div>
     </div>
 </div>
+<footer class="text-center text-white fixed-bottom bg-success mt-2 mb-2">
+    <!-- Copyright -->
+    <div class="text-center p-3 bg-success">
+        © 2022 Copyright:
+        <a class="text-white" th:href="@{/}">BITLAB SHOP</a>
+    </div>
+    <!-- Copyright -->
+</footer>
 </body>
 </html>

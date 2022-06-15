@@ -15,26 +15,49 @@ public class HomeController {
 
     @GetMapping(value = "/")
     public String indexPage(Model model) {
-        model.addAttribute("products", db.getAllProducts());
-        return "index";
+        try {
+            model.addAttribute("products", db.getAllProducts());
+            return "index";
+        } catch (Exception e) {
+            return "redirect:/notFound";
+        }
     }
 
     @GetMapping(value = "/details/{id}")
     public String productDetails(@PathVariable Long id,
                                  Model model) {
-        model.addAttribute("product", db.getProduct(id));
-        return "productDetails";
+        try {
+            model.addAttribute("product", db.getProduct(id));
+            return "productDetails";
+        } catch (Exception e) {
+            return "redirect:/notFound";
+        }
+    }
+
+    @PostMapping(value = "/details/{id}")
+    public String productDetails(@RequestParam(name = "pName", defaultValue = "null") String name,
+                                 @RequestParam(name = "pDescription", defaultValue = "null") String description,
+                                 @RequestParam(name = "pPrice", defaultValue = "0") double price) {
+        try {
+            Products product = new Products(null, name, description, price);
+            db.addProduct(product);
+            return "redirect:/";
+        } catch (Exception e) {
+            return "redirect:/notFound";
+        }
     }
 
     @PostMapping(value = "/addProduct")
     public String addProduct(@RequestParam(name = "pName", defaultValue = "null") String name,
                              @RequestParam(name = "pDescription", defaultValue = "null") String description,
-                             @RequestParam(name = "pPrice", defaultValue = "0") int price,
-                             Model model) {
-        Products product = new Products(null, name, description, price);
-        model.addAttribute("products", db.getAllProducts());
-        db.addProduct(product);
-        return "redirect:/";
+                             @RequestParam(name = "pPrice", defaultValue = "0") double price) {
+        try {
+            Products product = new Products(null, name, description, price);
+            db.addProduct(product);
+            return "redirect:/";
+        } catch (Exception e) {
+            return "redirect:/notFound";
+        }
     }
 
     @GetMapping(value = "/addProduct")
@@ -44,7 +67,16 @@ public class HomeController {
 
     @GetMapping(value = "/deleteProduct/{id}")
     public String deleteProduct(@PathVariable Long id) {
-        db.deleteProduct(id);
-        return "redirect:/";
+        try {
+            db.deleteProduct(id);
+            return "redirect:/";
+        } catch (Exception e) {
+            return "redirect:/notFound";
+        }
+    }
+
+    @GetMapping(value = "/notFound")
+    public String notFound() {
+        return "notFound";
     }
 }

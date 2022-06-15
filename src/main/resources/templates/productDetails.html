@@ -2,29 +2,32 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
 <div layout:fragment="productsContent">
-    <form th:action="@{'/'}" method="post">
+    <form th:action="@{'/details/' + ${product.id}}" method="post">
         <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">NAME</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="pName">
+                <input type="text" class="form-control" name="pName" th:value="${product.name}">
             </div>
         </div>
         <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">DESCRIPTION</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="pDescription">
+                <input type="text" class="form-control" name="pDescription" th:value="${product.description}">
             </div>
         </div>
         <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">PRICE</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" name="pPrice">
+                <input type="number" class="form-control" name="pPrice" th:value="${product.price}">
             </div>
         </div>
         <div class="mb-3 row">
-            <div class="col-sm-10">
-                <button class="btn btn-success">ADD PRODUCT</button>
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-success">SAVE PRODUCT</button>
+                <a th:href="@{'/deleteProduct/' + ${product.id}}" type="button"
+                   class="btn btn-danger float-end">REMOVE</a>
             </div>
+
         </div>
     </form>
 </div>
